@@ -1,4 +1,7 @@
+/* eslint-disable camelcase */
+
 import { handle } from 'redux-pack';
+import { findIndex } from 'lodash';
 
 import * as actionTypes from './weatherActionTypes';
 
@@ -20,7 +23,35 @@ const weatherReducer = (state = initialState, action = '') => {
           loading: true
         }),
         success: (prevState) => {
-          const weathers = [...payload.list];
+          const list = [...payload.list];
+          const weathers = [];
+          list.forEach(({ dt_txt, dt, main: { temp, temp_min, temp_max, humidity } }) => {
+            const dateArr = dt_txt.split(' ');
+            const dateStr = dateArr[0];
+            const timeStr = `${dateArr[1].split(':')[0]}:00`;
+            const index = findIndex(weathers, ({ date }) => (date === dateStr));
+
+            if (index >= 0) {
+              const { avgTempMin, avgTempMax, avgHumidity, avgTemp } = weathers[index];
+              weathers[index].chartData.push([timeStr, temp]);
+
+              // calculating avg and converting them from string (because toFixed changing number to string) to number
+              weathers[index].tempMin = +((temp_min + avgTempMin) / 2).toFixed(2);
+              weathers[index].avgTemp = +((temp + avgTemp) / 2).toFixed(2);
+              weathers[index].tempMax = +((temp_max + avgTempMax) / 2).toFixed(2);
+              weathers[index].humidity = +((humidity + avgHumidity) / 2).toFixed(2);
+            } else {
+              weathers.push({
+                date: dateStr,
+                id: dt,
+                avgTemp: temp,
+                avgHumidity: humidity,
+                avgTempMin: temp_min,
+                avgTempMax: temp_max,
+                chartData: [[timeStr, temp]]
+              });
+            }
+          });
           return {
             ...prevState,
             weathers

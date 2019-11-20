@@ -26,8 +26,12 @@
       top: 0;
       left: 0;
       width: 100%;
-      background: #dfdfdf;
+      background: $alternate-font-color-2;
       padding: 3px;
     }
+  }
+
+  .active .card-header {
+    background: $background-1;
   }
 }
