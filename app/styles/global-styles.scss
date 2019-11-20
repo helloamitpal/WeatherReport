@@ -1,0 +1,32 @@
+@import './colors.scss';
+
+body {
+	background: #333;
+	font-family: 'RobotoRegular','Roboto','Droid Sans','Helvetica Neue','Segoe UI','Segoe','Open Sans','Helvetica','Arial',sans serif;
+	font-size: 14px;
+	line-height: 20px;
+	margin: 0;
+	padding: 0
+}
+
+#app {
+	max-width: 900px;
+	width: 100%;
+	margin: 0 auto;
+}
+
+.primary-button {
+	border-radius: 5px;
+	background-color: $background;
+	color: $alternate-font-color;
+	font-weight: bold;
+	cursor: pointer;
+	padding: 10px;
+	font-size: 16px;
+	border: 0 none;
+	outline: 0 none;
+}
+
+.hide {
+  display: none !important;
+}

@@ -1,0 +1,1 @@
+export const GET_ALL_LIVE_MATCHES = 'GET_ALL_LIVE_MATCHES';

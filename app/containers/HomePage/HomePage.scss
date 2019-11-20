@@ -1,0 +1,9 @@
+@import '../../styles/colors.scss';
+
+.home-page {
+  .container {
+    background-color: $alternate-background;
+    padding: 20px;
+    text-align: center;
+  }
+}

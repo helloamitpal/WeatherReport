@@ -1,0 +1,35 @@
+@import '../../styles/colors.scss';
+
+.carousel-container {
+  position: relative;
+
+  .carousel-item  {
+    padding: 20px;
+    // width: 640px;
+    width: 100%;
+    margin: 0 10px;
+    background: $carousel-item-background;
+    align-items: center;
+    color: $alternate-font-color;
+    flex-direction: column;
+    justify-content: center;
+    left: 100%;
+    transition: left 0.5s ease;
+    display: flex;
+    position: absolute;
+    top: 0;
+    box-sizing: border-box;
+
+    &.prev-item {
+      left: -100%;
+    }
+
+    &.current-item {
+      left: 0;
+    }
+
+    &.next-item {
+      left: 100%;
+    }
+  }
+}

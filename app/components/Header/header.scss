@@ -1,0 +1,24 @@
+@import '../../styles/colors.scss';
+
+.header-container {
+	text-align: left;
+	margin: 0 auto;
+	padding: 10px 20px;
+	display: flex;
+	background: $background;
+
+	.logo-text {
+		padding-left: 0.5em;
+		font-size: 2em;
+		color: $alternate-font-color;
+		font-weight: bold;
+	}
+
+	.logo {
+		height: 50px;
+		width: 50px;
+		background: url(../../images/weather.png) no-repeat;
+		background-size: 100% 100%;
+		text-indent: -999em;
+	}
+}
