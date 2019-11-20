@@ -11,7 +11,6 @@ import FormControl from '@material-ui/core/FormControl';
 import * as weatherActionCreators from './weatherActionCreators';
 import LoadingIndicator from '../../components/LoadingIndicator';
 import Carousel from '../../components/Carousel';
-import config from '../../config';
 import EventTracker from '../../event-tracker';
 import Events from '../../event-tracker/events';
 
@@ -19,6 +18,7 @@ import './HomePage.scss';
 
 const HomePage = ({ weatherState, weatherActions }) => {
   const [value, setValue] = React.useState('cel');
+  const { loading, weathers } = weatherState;
 
   const handleChange = ({ target }) => {
     setValue(target.value);
@@ -26,8 +26,8 @@ const HomePage = ({ weatherState, weatherActions }) => {
 
   useEffect(() => {
     EventTracker.raise(Events.HOME_PAGE);
-    // weatherActions.get
-  });
+    weatherActions.getWeeklyWeather();
+  }, []);
 
   return (
     <div className="home-page container">
@@ -42,7 +42,7 @@ const HomePage = ({ weatherState, weatherActions }) => {
             <FormControlLabel value="far" control={<Radio />} label="Fahrenheit" />
           </RadioGroup>
         </FormControl>
-        <Carousel list={[]} />
+        {loading && !weathers.length ? <LoadingIndicator /> : <Carousel list={weathers} />}
       </div>
     </div>
   );

@@ -3,7 +3,7 @@ import { handle } from 'redux-pack';
 import * as actionTypes from './weatherActionTypes';
 
 const initialState = {
-  liveMatches: [],
+  weathers: [],
   error: '',
   loading: false
 };
@@ -12,7 +12,7 @@ const weatherReducer = (state = initialState, action = '') => {
   const { type, payload } = action;
 
   switch (type) {
-    case actionTypes.GET_ALL_LIVE_MATCHES: {
+    case actionTypes.GET_WEEKLY_WEATHER: {
       return handle(state, action, {
         start: (prevState) => ({
           ...prevState,
@@ -20,10 +20,10 @@ const weatherReducer = (state = initialState, action = '') => {
           loading: true
         }),
         success: (prevState) => {
-          const liveMatches = [...payload.liveEvents];
+          const weathers = [...payload.list];
           return {
             ...prevState,
-            liveMatches
+            weathers
           };
         },
         failure: (prevState) => ({
@@ -32,7 +32,7 @@ const weatherReducer = (state = initialState, action = '') => {
         }),
         finish: (prevState) => ({
           ...prevState,
-          loading: false
+          loading: true
         })
       });
     }
