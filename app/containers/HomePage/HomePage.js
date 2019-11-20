@@ -36,9 +36,9 @@ const HomePage = ({ weatherState, weatherActions }) => {
     legend: 'none'
   };
 
-  const handleChange = ({ target }) => {
-    setUnitValue(target.value);
-    weatherActions.getWeeklyWeather(unitValue);
+  const handleChange = ({ target: { value } }) => {
+    setUnitValue(value);
+    weatherActions.getWeeklyWeather(value);
   };
 
   const onSelectCard = (cardIndex) => {
