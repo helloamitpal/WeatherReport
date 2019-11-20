@@ -97,24 +97,11 @@ module.exports = (options) => ({
       cleanupOutdatedCaches: true,
       skipWaiting: true,
       runtimeCaching: [{
-        urlPattern: /\.svg$/,
+        urlPattern: /\.png$/,
         handler: 'CacheFirst'
       }, {
-        urlPattern: /.*/,
+        urlPattern: /forecast/,
         handler: 'NetworkFirst'
-      }, {
-        urlPattern: /.jsonp/,
-        handler: 'CacheFirst',
-        options: {
-          cacheName: 'WeatherReport-api-cache',
-          expiration: {
-            maxEntries: 5,
-            maxAgeSeconds: 120
-          },
-          cacheableResponse: {
-            statuses: [0, 200]
-          }
-        }
       }]
     }),
 

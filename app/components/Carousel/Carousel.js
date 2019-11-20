@@ -16,17 +16,17 @@ const Carousel = ({ children, className }) => {
 
   return (
     <div className={`${className} carousel-container`}>
-      <button onClick={handleLeftNavigation} type="button">
+      <button onClick={handleLeftNavigation} type="button" disabled={currentIndex === 0}>
         <i className="arrow left" />
       </button>
       <div className="item-container" flex="1">
         {
           Children.map(children, (item, index) => (
-            <div className={`carousel-item ${currentIndex === index ? '' : 'hide'}`} key={`carousel-${index.toString()}`}>{item}</div>
+            <div className={`carousel-item ${currentIndex === index ? 'active' : ''}`} key={`carousel-${index.toString()}`}>{item}</div>
           ))
         }
       </div>
-      <button type="button" onClick={handleRightNavigation}>
+      <button type="button" onClick={handleRightNavigation} disabled={currentIndex === children.length - 1}>
         <i className="arrow right" />
       </button>
     </div>

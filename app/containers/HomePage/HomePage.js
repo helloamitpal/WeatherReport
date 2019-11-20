@@ -52,8 +52,8 @@ const HomePage = ({ weatherState, weatherActions }) => {
           : (
             <Carousel>
               {
-                weathers.map(({ main: { temp, temp_min, temp_max, humidity }, weather, dt_txt }) => (
-                  <Card>
+                weathers.map(({ main: { temp, temp_min, temp_max, humidity }, weather, dt_txt, dt }) => (
+                  <Card key={`card-${dt}`}>
                     <CardContent>
                       <header className="card-header">{formatDate(dt_txt)}</header>
                       <h1 className="mt-1">
