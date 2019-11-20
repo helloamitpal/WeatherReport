@@ -8,9 +8,14 @@
     border: 0;
     outline: 0 none;
     cursor: pointer;
+    background: $alternate-background;
 
-    &[disabled] .arrow {
-      border-color: $disabled;
+    &[disabled] {
+      pointer-events: none;
+
+      .arrow {
+        border-color: $disabled;
+      }      
     }
   }
 
@@ -39,6 +44,7 @@
     .carousel-item {
       margin: 0 10px;
       border-radius: 4px;
+      min-width: 200px;
 
       &.active {
         -webkit-box-shadow: 0px 0px 8px 2px rgba(77,156,224,0.8);

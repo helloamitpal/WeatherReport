@@ -27,6 +27,7 @@ const HomePage = ({ weatherState, weatherActions }) => {
 
   const handleChange = ({ target }) => {
     setUnitValue(target.value);
+    weatherActions.getWeeklyWeather(unitValue);
   };
 
   useEffect(() => {
