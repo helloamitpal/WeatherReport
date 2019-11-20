@@ -1,4 +1,6 @@
-import React, { useEffect } from 'react';
+/* eslint-disable camelcase */
+
+import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -7,26 +9,29 @@ import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
 
 import * as weatherActionCreators from './weatherActionCreators';
 import LoadingIndicator from '../../components/LoadingIndicator';
 import Carousel from '../../components/Carousel';
 import EventTracker from '../../event-tracker';
 import Events from '../../event-tracker/events';
+import { formatDate } from '../../services/helper';
 
 import './HomePage.scss';
 
 const HomePage = ({ weatherState, weatherActions }) => {
-  const [value, setValue] = React.useState('cel');
+  const [unitValue, setUnitValue] = useState('C');
   const { loading, weathers } = weatherState;
 
   const handleChange = ({ target }) => {
-    setValue(target.value);
+    setUnitValue(target.value);
   };
 
   useEffect(() => {
     EventTracker.raise(Events.HOME_PAGE);
-    weatherActions.getWeeklyWeather();
+    weatherActions.getWeeklyWeather(unitValue);
   }, []);
 
   return (
@@ -37,12 +42,38 @@ const HomePage = ({ weatherState, weatherActions }) => {
       </Helmet>
       <div className="container">
         <FormControl component="fieldset">
-          <RadioGroup aria-label="unit" name="unit" value={value} onChange={handleChange}>
-            <FormControlLabel value="cel" control={<Radio />} label="Celcius" />
-            <FormControlLabel value="far" control={<Radio />} label="Fahrenheit" />
+          <RadioGroup aria-label="unit" name="unit" value={unitValue} onChange={handleChange}>
+            <FormControlLabel value="C" control={<Radio />} label="Celcius" />
+            <FormControlLabel value="F" control={<Radio />} label="Fahrenheit" />
           </RadioGroup>
         </FormControl>
-        {loading && !weathers.length ? <LoadingIndicator /> : <Carousel list={weathers} />}
+        {loading && !weathers.length
+          ? <LoadingIndicator />
+          : (
+            <Carousel>
+              {
+                weathers.map(({ main: { temp, temp_min, temp_max, humidity }, weather, dt_txt }) => (
+                  <Card>
+                    <CardContent>
+                      <header className="card-header">{formatDate(dt_txt)}</header>
+                      <h1 className="mt-1">
+                        {temp}
+                        &deg;
+                        {unitValue}
+                      </h1>
+                      <section className="min-max-section">
+                        <span>{`Min: ${temp_min}`}</span>
+                        <span>{`Max: ${temp_max}`}</span>
+                      </section>
+                      {weather && weather[0] && <section>{weather[0].description}</section>}
+                      <section>{`Humidity: ${humidity}%`}</section>
+                    </CardContent>
+                  </Card>
+                ))
+              }
+            </Carousel>
+          )
+        }
       </div>
     </div>
   );
