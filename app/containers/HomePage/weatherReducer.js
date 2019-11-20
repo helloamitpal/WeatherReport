@@ -26,9 +26,9 @@ const weatherReducer = (state = initialState, action = '') => {
           const list = [...payload.list];
           const weathers = [];
           list.forEach(({ dt_txt, dt, main: { temp, temp_min, temp_max, humidity } }) => {
-            const dateArr = dt_txt.split(' ');
-            const dateStr = dateArr[0];
-            const time = parseInt(dateArr[1].split(':')[0], 10);
+            const dateObj = new Date(dt_txt);
+            const dateStr = `${dateObj.getFullYear()}-${dateObj.getDate()}-${dateObj.getMonth() + 1}`;
+            const time = dateObj.getHours();
             const timeStr = `${time > 12 ? time - 12 : (time || 12)} ${time >= 12 ? 'PM' : 'AM'}`;
             const index = findIndex(weathers, ({ date }) => (date === dateStr));
 
