@@ -20,19 +20,11 @@ html, body {
 }
 
 .mt-1 {
-	margin-top: 1em;
+	margin-top: 1em !important;
 }
 
-.primary-button {
-	border-radius: 5px;
-	background-color: $background;
-	color: $alternate-font-color;
-	font-weight: bold;
-	cursor: pointer;
-	padding: 10px;
-	font-size: 16px;
-	border: 0 none;
-	outline: 0 none;
+.mt-2 {
+	margin-top: 2em !important;
 }
 
 .hide {

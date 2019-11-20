@@ -4,7 +4,7 @@ import { debounce } from 'lodash';
 
 import './Carousel.scss';
 
-const Carousel = ({ children, className }) => {
+const Carousel = ({ children, className, onSelectCard }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [noOfCards, setNoOfCards] = useState(0);
   const [indexes, setIndexes] = useState([]);
@@ -27,6 +27,13 @@ const Carousel = ({ children, className }) => {
     }
   };
 
+  const onClickCard = (cardIndex, dataObj) => {
+    if (cardIndex !== currentIndex) {
+      setCurrentIndex(cardIndex);
+      onSelectCard(cardIndex, dataObj);
+    }
+  };
+
   const resizeHandler = () => {
     const { current: { clientWidth } } = containerRef;
     let cards = 0;
@@ -45,16 +52,20 @@ const Carousel = ({ children, className }) => {
 
   const resizeDebounce = debounce(resizeHandler, 500);
 
-  const handleLeftNavigation = () => {
-    const index = currentIndex - 1;
+  const handleNavigation = (index) => {
     setCurrentIndex(index);
     determineVisibleCards(noOfCards, index);
+    onSelectCard(index, children[index]);
+  };
+
+  const handleLeftNavigation = () => {
+    const index = currentIndex - 1;
+    handleNavigation(index);
   };
 
   const handleRightNavigation = () => {
     const index = currentIndex + 1;
-    setCurrentIndex(index);
-    determineVisibleCards(noOfCards, index);
+    handleNavigation(index);
   };
 
   useEffect(() => {
@@ -71,12 +82,13 @@ const Carousel = ({ children, className }) => {
       <button onClick={handleLeftNavigation} type="button" disabled={currentIndex === 0}>
         <i className="arrow left" />
       </button>
-      <div className="item-container" flex="1">
+      <div className="item-container">
         {
           Children.map(children, (item, index) => (
             <div
               className={`carousel-item ${indexes.includes(index) ? '' : 'hide'} ${currentIndex === index ? 'active' : ''}`}
               key={`carousel-${index.toString()}`}
+              onClick={() => onClickCard(index, item)}
             >
               {item}
             </div>
@@ -92,7 +104,8 @@ const Carousel = ({ children, className }) => {
 
 Carousel.propTypes = {
   children: PropTypes.arrayOf(PropTypes.element).isRequired,
-  className: PropTypes.string
+  className: PropTypes.string,
+  onSelectCard: PropTypes.func
 };
 
 Carousel.defaultProps = {

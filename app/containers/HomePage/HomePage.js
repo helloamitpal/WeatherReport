@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Fragment } from 'react';
 import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -11,6 +11,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
+import { Chart } from 'react-google-charts';
 
 import * as weatherActionCreators from './weatherActionCreators';
 import LoadingIndicator from '../../components/LoadingIndicator';
@@ -23,11 +24,16 @@ import './HomePage.scss';
 
 const HomePage = ({ weatherState, weatherActions }) => {
   const [unitValue, setUnitValue] = useState('C');
+  const [selectedCardIndex, setSelectedCardIndex] = useState(0);
   const { loading, weathers } = weatherState;
 
   const handleChange = ({ target }) => {
     setUnitValue(target.value);
     weatherActions.getWeeklyWeather(unitValue);
+  };
+
+  const onSelectCard = (cardIndex) => {
+    setSelectedCardIndex(cardIndex);
   };
 
   useEffect(() => {
@@ -51,28 +57,31 @@ const HomePage = ({ weatherState, weatherActions }) => {
         {loading && !weathers.length
           ? <LoadingIndicator />
           : (
-            <Carousel>
-              {
-                weathers.map(({ main: { temp, temp_min, temp_max, humidity }, weather, dt_txt, dt }) => (
-                  <Card key={`card-${dt}`}>
-                    <CardContent>
-                      <header className="card-header">{formatDate(dt_txt)}</header>
-                      <h1 className="mt-1">
-                        {temp}
-                        &deg;
-                        {unitValue}
-                      </h1>
-                      <section className="min-max-section">
-                        <span>{`Min: ${temp_min}`}</span>
-                        <span>{`Max: ${temp_max}`}</span>
-                      </section>
-                      {weather && weather[0] && <section>{weather[0].description}</section>}
-                      <section>{`Humidity: ${humidity}%`}</section>
-                    </CardContent>
-                  </Card>
-                ))
-              }
-            </Carousel>
+            <Fragment>
+              <Carousel onSelect={onSelectCard}>
+                {
+                  weathers.map(({ main: { temp, temp_min, temp_max, humidity }, weather, dt_txt, dt }) => (
+                    <Card key={`card-${dt}`}>
+                      <CardContent>
+                        <header className="card-header">{formatDate(dt_txt)}</header>
+                        <h1 className="mt-1">
+                          {temp}
+                          &deg;
+                          {unitValue}
+                        </h1>
+                        <section className="min-max-section">
+                          <span>{`Min: ${temp_min}`}</span>
+                          <span>{`Max: ${temp_max}`}</span>
+                        </section>
+                        {weather && weather[0] && <section>{weather[0].description}</section>}
+                        <section>{`Humidity: ${humidity}%`}</section>
+                      </CardContent>
+                    </Card>
+                  ))
+                }
+              </Carousel>
+              <Chart className="mt-2" chartType="BarChart" data={weathers[selectedCardIndex].chartData} width="100%" height="400px" />
+            </Fragment>
           )
         }
       </div>
