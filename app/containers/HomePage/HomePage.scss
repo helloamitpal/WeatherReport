@@ -1,10 +1,13 @@
 @import '../../styles/colors.scss';
 
 .home-page {
-  .container {
+  &.container {
     background-color: $alternate-background;
     padding: 20px;
     text-align: center;
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
   }
 
   .min-max-section span {

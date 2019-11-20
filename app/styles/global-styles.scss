@@ -1,18 +1,22 @@
 @import './colors.scss';
 
-body {
+html, body {
 	background: #333;
 	font-family: 'RobotoRegular','Roboto','Droid Sans','Helvetica Neue','Segoe UI','Segoe','Open Sans','Helvetica','Arial',sans serif;
 	font-size: 14px;
 	line-height: 20px;
 	margin: 0;
-	padding: 0
+	padding: 0;
+	height: 100%;
 }
 
 #app {
 	max-width: 900px;
 	width: 100%;
 	margin: 0 auto;
+	display: flex;
+  flex-direction: column;
+	height: 100%;
 }
 
 .mt-1 {
