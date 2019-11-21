@@ -1,4 +1,4 @@
 /node_modules
 /build
 /coverage
-/test/modules/__snapshots__/
+__snapshots__/

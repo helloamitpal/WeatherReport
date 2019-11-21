@@ -105,7 +105,7 @@ const Carousel = ({ children, className, onSelectCard }) => {
 Carousel.propTypes = {
   children: PropTypes.arrayOf(PropTypes.element).isRequired,
   className: PropTypes.string,
-  onSelectCard: PropTypes.func
+  onSelectCard: PropTypes.func.isRequired
 };
 
 Carousel.defaultProps = {

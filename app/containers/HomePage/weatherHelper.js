@@ -17,6 +17,7 @@ const parseDateTime = (dateTimeStr) => {
   };
 };
 
+// calculating avg and converting them from string (because toFixed changing number to string) to number
 const getAvgValue = (val, val1, floatingPrecision = 2) => (+((val + val1) / 2).toFixed(floatingPrecision));
 
 const getSynthesizedWeatherList = (list) => {
@@ -35,7 +36,6 @@ const getSynthesizedWeatherList = (list) => {
       const { avgTempMin, avgTempMax, avgHumidity, avgTemp } = weathers[index];
       weathers[index].chartData.push([time, temp]);
 
-      // calculating avg and converting them from string (because toFixed changing number to string) to number
       weathers[index].tempMin = getAvgValue(temp_min, avgTempMin);
       weathers[index].avgTemp = getAvgValue(temp, avgTemp);
       weathers[index].tempMax = getAvgValue(temp_max, avgTempMax);
