@@ -3,10 +3,6 @@ import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import { Chart } from 'react-google-charts';
@@ -16,6 +12,7 @@ import LoadingIndicator from '../../components/LoadingIndicator';
 import Carousel from '../../components/Carousel';
 import EventTracker from '../../event-tracker';
 import Events from '../../event-tracker/events';
+import UnitSelector from './UnitSelector';
 
 import './HomePage.scss';
 
@@ -56,23 +53,20 @@ const HomePage = ({ weatherState, weatherActions }) => {
         <title>Weather Report</title>
         <meta name="description" content="Weather Report" />
       </Helmet>
+
       <div className="container">
-        <FormControl component="fieldset">
-          <RadioGroup aria-label="unit" name="unit" value={unitValue} onChange={handleChange}>
-            <FormControlLabel value="C" control={<Radio />} label="Celcius" />
-            <FormControlLabel value="F" control={<Radio />} label="Fahrenheit" />
-          </RadioGroup>
-        </FormControl>
+        <UnitSelector unit={unitValue} onUnitChange={handleChange} />
+
         {loading && !weathers.length
           ? <LoadingIndicator />
           : (
             <Fragment>
               <Carousel onSelectCard={onSelectCard}>
                 {
-                  weathers.map(({ avgTemp, avgTempMin, avgTempMax, avgHumidity, date, id }) => (
+                  weathers.map(({ avgTemp, avgTempMin, avgTempMax, avgHumidity, date, id }, index) => (
                     <Card key={`card-${id}`}>
                       <CardContent>
-                        <header className="card-header">{date}</header>
+                        <header className="card-header">{index === 0 ? 'Today' : date }</header>
                         <h1 className="mt-1">
                           {avgTemp}
                           &deg;
@@ -88,6 +82,7 @@ const HomePage = ({ weatherState, weatherActions }) => {
                   ))
                 }
               </Carousel>
+
               <Chart
                 className="mt-2"
                 chartType="ColumnChart"

@@ -1,6 +1,7 @@
-const formatDate = (dateString) => {
-  const date = new Date(dateString);
-  return `${date.getMonth() + 1}-${date.getDate()}-${date.getFullYear()}`;
+const getLocation = (locationStr) => (locationStr.split(',')[0]);
+const getTodaysDate = () => {
+  const today = new Date();
+  return `${today.getFullYear()}-${today.getDate()}-${today.getMonth() + 1}`;
 };
 
-export { formatDate };
+export { getLocation, getTodaysDate };

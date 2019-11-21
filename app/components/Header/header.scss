@@ -7,10 +7,19 @@
 	display: flex;
 	background: $background;
 	width: 100%;
+	align-items: center;
+
+	h3, h1 {
+		margin: 3px;
+	}
+
+	h3 {
+		font-size: 1em;
+		color: $alternate-font-color-1;
+	}
 
 	.logo-text {
-		padding-left: 0.5em;
-		font-size: 2em;
+		font-size: 1.6em;
 		color: $alternate-font-color;
 		font-weight: bold;
 	}
@@ -20,6 +29,6 @@
 		width: 50px;
 		background: url(../../images/weather.png) no-repeat;
 		background-size: 100% 100%;
-		text-indent: -999em;
+		margin-right: 0.7em;
 	}
 }

@@ -75,6 +75,7 @@ const Carousel = ({ children, className, onSelectCard }) => {
     window.addEventListener('resize', resizeDebounce);
     resizeDebounce();
 
+    // on unmounting of this component, resize event listener will be removed
     return () => {
       window.removeEventListener('resize', resizeDebounce);
     };

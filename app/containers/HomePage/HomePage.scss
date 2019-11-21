@@ -28,10 +28,14 @@
       width: 100%;
       background: $alternate-font-color-2;
       padding: 3px;
+      box-sizing: border-box;
+      height: 30px;
+      line-height: 24px;
     }
   }
 
   .active .card-header {
     background: $background-1;
+    transition: all 0.5s;
   }
 }
