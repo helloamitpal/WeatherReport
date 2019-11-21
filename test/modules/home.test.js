@@ -1,66 +1,59 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { combineReducers, createStore, applyMiddleware } from 'redux';
-import { default as reduxThunk } from 'redux-thunk';
+import { combineReducers, createStore } from 'redux';
+import PropTypes from 'prop-types';
 
 import HomePage from '../../app/containers/HomePage/HomePage';
-import weatherReducer from '../../app/containers/HomePage/weatherReducer';
+import weatherReducer from '../__mocks__/weatherReducerMockData';
+
+const reducer = combineReducers({
+  weather: weatherReducer
+});
+const store = createStore(reducer);
+const baseProps = {
+  weathers: [
+    {
+      date: '2019-21-11',
+      id: 1574316000,
+      avgTemp: 2.23,
+      avgHumidity: 93,
+      avgTempMin: 0.08,
+      avgTempMax: 1.75,
+      chartData: [
+        [
+          '6 AM',
+          1.75
+        ]
+      ],
+      tempMin: 0.53,
+      tempMax: 1.36,
+      humidity: 93
+    }
+  ],
+  error: '',
+  loading: false
+};
 
 describe('Testing WeatherReport home page Component', () => {
   let component;
-  let useEffect;
 
-  const mockUseEffect = () => {
-    useEffect.mockImplementationOnce((fn) => fn());
-  };
-
-  beforeAll(() => {
-    const rootReducers = combineReducers({
-      weather: weatherReducer
-    });
-
-    const store = createStore(
-      rootReducers,
-      applyMiddleware(reduxThunk)
-    );
-
-    useEffect = jest.spyOn(React, 'useEffect');
-    mockUseEffect();
-
-    component = shallow(<HomePage />, { context: { store } });
-    component.setProps({
-      weatherState: {
-        weathers: [{
-          avgTemp: 10,
-          avgTempMin: 10,
-          avgTempMax: 10,
-          avgHumidity: 10,
-          date: '2019-10-10',
-          id: 123456,
-          chartData: [[10, 10]]
-        }],
-        loading: false
-      },
-      weatherActions: {
-        getWeeklyWeather: () => jest.fn()
+  it('component should be rendered', () => {
+    component = shallow(
+      <HomePage
+        weatherActions={{
+          getWeeklyWeather: () => Promise.resolve([])
+        }}
+        weatherState={baseProps}
+      />, {
+        context: {
+          store
+        },
+        ildContextTypes: {
+          store: PropTypes.object
+        }
       }
-    });
+    );
     component.setState({ unitValue: 'C', selectedCardIndex: 0 });
-    component.update();
-  });
-
-  afterAll(() => {
-    component.unmount();
-  });
-
-  it('it should render component', () => {
     expect(component).toMatchSnapshot();
   });
-
-  it('it should have certain props', () => {
-    const compInstance = component.instance();
-    compInstance.props.weatherActions.getWeeklyWeather();
-    expect(compInstance.props.weatherState.weathers.length).toEqual(1);
-  });
-
 });

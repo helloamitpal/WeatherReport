@@ -27,7 +27,8 @@ const Carousel = ({ children, className, onSelectCard }) => {
     }
   };
 
-  const onClickCard = (cardIndex, dataObj) => {
+  const onClickCard = (evt, cardIndex, dataObj) => {
+    evt.preventDefault();
     if (cardIndex !== currentIndex) {
       setCurrentIndex(cardIndex);
       onSelectCard(cardIndex, dataObj);
@@ -58,12 +59,14 @@ const Carousel = ({ children, className, onSelectCard }) => {
     onSelectCard(index, children[index]);
   };
 
-  const handleLeftNavigation = () => {
+  const handleLeftNavigation = (evt) => {
+    evt.preventDefault();
     const index = currentIndex - 1;
     handleNavigation(index);
   };
 
-  const handleRightNavigation = () => {
+  const handleRightNavigation = (evt) => {
+    evt.preventDefault();
     const index = currentIndex + 1;
     handleNavigation(index);
   };
@@ -88,14 +91,14 @@ const Carousel = ({ children, className, onSelectCard }) => {
             <div
               className={`carousel-item ${indexes.includes(index) ? '' : 'hide'} ${currentIndex === index ? 'active' : ''}`}
               key={`carousel-${index.toString()}`}
-              onClick={() => onClickCard(index, item)}
+              onClick={(evt) => onClickCard(evt, index, item)}
             >
               {item}
             </div>
           ))
         }
       </div>
-      <button type="button" onClick={handleRightNavigation} disabled={currentIndex === children.length - 1}>
+      <button type="button" onClick={handleRightNavigation} disabled={children && currentIndex === children.length - 1}>
         <i className="arrow right" />
       </button>
     </div>
