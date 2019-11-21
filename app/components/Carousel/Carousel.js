@@ -99,7 +99,7 @@ const Carousel = ({ children, className, onSelectCard }) => {
           ))
         }
       </div>
-      <button type="button" onClick={handleRightNavigation} disabled={children && currentIndex === children.length - 1}>
+      <button type="button" onClick={handleRightNavigation} disabled={currentIndex === children.length - 1}>
         <i className="arrow right" />
       </button>
     </div>

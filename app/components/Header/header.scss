@@ -9,6 +9,7 @@
 	width: 100%;
 	align-items: center;
 	background: linear-gradient(90deg, $background-1 0%, $background 35%);
+	box-shadow: inset 0px 0px 5px 0px $header-inner-shadow;
 
 	h3, h1 {
 		margin: 3px;
