@@ -3,6 +3,7 @@
 .carousel-container {
   display: flex;
   width: 100%;
+  justify-content: space-around;
 
   button {
     border: 0;
@@ -38,7 +39,6 @@
 
   .item-container {
     display: flex;
-    flex: 1;
     justify-content: center;
 
     .carousel-item {

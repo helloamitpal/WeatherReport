@@ -39,6 +39,7 @@ const Carousel = ({ children, className, onSelectCard }) => {
     const { current: { clientWidth } } = containerRef;
     let cards = 0;
 
+    // determining no of cards to be displayed as per resolution
     if (clientWidth < 400) {
       cards = 1;
     } else if (clientWidth >= 400 && clientWidth < 700) {
@@ -47,8 +48,11 @@ const Carousel = ({ children, className, onSelectCard }) => {
       cards = Math.min(3, children.length);
     }
 
+    // resetting card and corresponding chart selection to the first one
+    setCurrentIndex(0);
     setNoOfCards(cards);
-    determineVisibleCards(cards, currentIndex);
+    determineVisibleCards(cards, 0);
+    onSelectCard(0, children[0]);
   };
 
   const resizeDebounce = debounce(resizeHandler, 500);

@@ -54,7 +54,7 @@ const HomePage = ({ weatherState, weatherActions }) => {
         <meta name="description" content="Weather Report" />
       </Helmet>
 
-      <div className="container">
+      <div className="main-container">
         <UnitSelector unit={unitValue} onUnitChange={handleChange} />
 
         {loading && !weathers.length
