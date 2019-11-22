@@ -25,12 +25,12 @@ setupMiddleware(app, {
   publicPath: '/'
 });
 
-logger.info(`Trying to host at: ${host}:${port}`);
+logger.info(`Trying to host at port: ${port}`);
 
 // Start your app.
-app.listen(port, host, (err) => {
+app.listen(port, (err) => {
   if (err) {
     return logger.error(err.message);
   }
-  logger.success(`Hosted successfully at: ${host}:${port}`);
+  logger.success(`Hosted successfully at port: ${port}`);
 });
