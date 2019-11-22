@@ -83,15 +83,19 @@ const HomePage = ({ weatherState, weatherActions }) => {
                 }
               </Carousel>
 
-              <Chart
-                className="mt-2"
-                chartType="ColumnChart"
-                columns={chartColumnConfig}
-                rows={weathers[selectedCardIndex].chartData}
-                width="100%"
-                height="400px"
-                config={chartConfig}
-              />
+              {weathers[selectedCardIndex]
+                ? (
+                  <Chart
+                    className="mt-2"
+                    chartType="ColumnChart"
+                    columns={chartColumnConfig}
+                    rows={weathers[selectedCardIndex].chartData}
+                    width="100%"
+                    height="400px"
+                    config={chartConfig}
+                  />
+                ) : null
+              }
             </Fragment>
           )
         }
