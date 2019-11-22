@@ -33,5 +33,5 @@ module.exports = function addDevMiddlewares(app, webpackConfig) {
     });
   };
 
-  app.get(/^((?!api).)*$/, (req, res) => (servingPage(res)));
+  app.get('/*', (req, res) => (servingPage(res)));
 };
