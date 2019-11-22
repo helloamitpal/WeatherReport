@@ -16,7 +16,7 @@ app.use((req, res, next) => {
   next();
 });
 
-const port = parseInt(process.env.PORT || '8081', 10);
+const port = process.env.PORT || 8081;
 const host = process.env.HOST || 'localhost';
 
 // In production we need to pass these values in instead of relying on webpack
@@ -25,9 +25,12 @@ setupMiddleware(app, {
   publicPath: '/'
 });
 
+logger.info(`Trying to host at: ${host}:${port}`);
+
 // Start your app.
 app.listen(port, host, (err) => {
   if (err) {
     return logger.error(err.message);
   }
+  logger.success(`Hosted successfully at: ${host}:${port}`);
 });
