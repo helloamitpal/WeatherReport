@@ -10,7 +10,7 @@ const fireRequest = async (method, fullUrl, data) => {
     method,
     data: JSON.stringify(data),
     mode: 'same-origin',
-    timeout: process.env.NODE_ENV === 'production' ? 8000 : 100000, // after this timeout api request will be auto-cancelled
+    timeout: 8000,
     headers: {
       'Content-Type': 'application/json'
     }

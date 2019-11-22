@@ -19,7 +19,7 @@ import './HomePage.scss';
 const HomePage = ({ weatherState, weatherActions }) => {
   const [unitValue, setUnitValue] = useState('C');
   const [selectedCardIndex, setSelectedCardIndex] = useState(0);
-  const { loading, weathers } = weatherState;
+  const { loading, weathers, error } = weatherState;
   const chartColumnConfig = [{
     type: 'string',
     label: 'Time'
@@ -57,7 +57,9 @@ const HomePage = ({ weatherState, weatherActions }) => {
       <div className="main-container">
         <UnitSelector unit={unitValue} onUnitChange={handleChange} />
 
-        {loading && !weathers.length
+        {!loading && error && <p>Something went wrong. We are looking into this issue. Please try again after some time.</p>}
+
+        {(loading && weathers.length === 0 && !error)
           ? <LoadingIndicator />
           : (
             <Fragment>

@@ -1,7 +1,6 @@
 const express = require('express');
 const { resolve } = require('path');
 const compression = require('compression');
-// const cors = require('cors');
 
 const logger = require('./util/logger');
 const setupMiddleware = require('./middlewares/frontendMiddleware');
@@ -23,12 +22,6 @@ app.use((req, res, next) => {
     next();
   }
 });
-// app.use(cors({
-//   origin: true,
-//   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-//   credentials: true,
-//   exposedHeaders: ['x-auth-token']
-// }));
 app.disable('x-powered-by');
 app.use(compression());
 
