@@ -97,7 +97,7 @@ module.exports = (options) => ({
       cleanupOutdatedCaches: true,
       skipWaiting: true,
       runtimeCaching: [{
-        urlPattern: /\.svg$/,
+        urlPattern: /\.*$/,
         handler: 'CacheFirst'
       }, {
         urlPattern: /forecast/,
