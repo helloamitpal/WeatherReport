@@ -1,14 +1,13 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import UnitSelector from '../../app/containers/HomePage/UnitSelector';
+import TimeWiseSummary from '../../../app/containers/HomePage/TimeWiseSummary';
 
 describe('Testing UnitSelector Component', () => {
   let component;
-  const fn = jest.fn();
 
   beforeAll(() => {
-    component = shallow(<UnitSelector unit="C" onUnitChange={fn} />);
+    component = shallow(<TimeWiseSummary timeline={[{ time: '9AM', description: 'sample weather' }]} />);
   });
 
   afterAll(() => {

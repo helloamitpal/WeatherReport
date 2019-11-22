@@ -18,9 +18,9 @@ const WeatherSummary = ({ unit, weatherData: { avgTemp, avgHumidity } }) => {
 
   if (avgHumidity < 20) {
     humid = 'less';
-  } else if (avgHumidity >= 20 && avgHumidity < 50) {
+  } else if (avgHumidity >= 20 && avgHumidity <= 60) {
     humid = 'mildly';
-  } else if (avgHumidity >= 50 && avgHumidity < 70) {
+  } else {
     humid = 'highly';
   }
 

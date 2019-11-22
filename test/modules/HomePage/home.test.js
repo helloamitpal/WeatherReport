@@ -3,8 +3,8 @@ import { shallow } from 'enzyme';
 import { combineReducers, createStore } from 'redux';
 import PropTypes from 'prop-types';
 
-import HomePage from '../../app/containers/HomePage/HomePage';
-import weatherReducer from '../__mocks__/weatherReducerMockData';
+import HomePage from '../../../app/containers/HomePage/HomePage';
+import weatherReducer from '../../__mocks__/weatherReducerMockData';
 
 const reducer = combineReducers({
   weather: weatherReducer

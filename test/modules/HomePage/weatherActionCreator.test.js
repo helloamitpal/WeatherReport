@@ -1,9 +1,9 @@
 import configureMockStore from 'redux-mock-store';
 import { default as reduxThunk } from 'redux-thunk';
 
-import * as actions from '../../app/containers/HomePage/weatherActionCreators';
-import * as types from '../../app/containers/HomePage/weatherActionTypes';
-import api from '../../app/api/apiInterceptor';
+import * as actions from '../../../app/containers/HomePage/weatherActionCreators';
+import * as types from '../../../app/containers/HomePage/weatherActionTypes';
+import api from '../../../app/api/apiInterceptor';
 
 describe('weather Action Creators', () => {
   let store;
