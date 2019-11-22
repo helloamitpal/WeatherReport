@@ -36,7 +36,13 @@ const Carousel = ({ children, className, onSelectCard }) => {
   };
 
   const resizeHandler = () => {
-    const { current: { clientWidth } } = containerRef;
+    const { current } = containerRef;
+
+    if (!current) {
+      return;
+    }
+
+    const { clientWidth } = current;
     let cards = 0;
 
     // determining no of cards to be displayed as per resolution

@@ -3,7 +3,9 @@
 .loading-indicator {
 
   &.linear {
-    position: relative;
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 6px;
     background-color: #fdba2c;

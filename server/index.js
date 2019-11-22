@@ -1,30 +1,36 @@
 const express = require('express');
 const { resolve } = require('path');
 const compression = require('compression');
-const cors = require('cors');
+// const cors = require('cors');
 
 const logger = require('./util/logger');
 const setupMiddleware = require('./middlewares/frontendMiddleware');
 
 const app = express();
 
-app.use(cors({
-  origin: true,
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  credentials: true,
-  exposedHeaders: ['x-auth-token']
-}));
-app.disable('x-powered-by');
-app.use(compression());
 // server configuration
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
   res.header('X-Content-Type-Options', 'no sniff');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  res.header('Access-Control-Allow-Headers', 'Origin, Content-Type, Authorization, Content-Length, X-Requested-With, Accept');
   res.set('Cache-Control', 'public, max-age=31557600');
 
-  next();
+  // intercept OPTIONS method
+  if (req.method === 'OPTIONS') {
+    res.send(200);
+  } else {
+    next();
+  }
 });
+// app.use(cors({
+//   origin: true,
+//   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+//   credentials: true,
+//   exposedHeaders: ['x-auth-token']
+// }));
+app.disable('x-powered-by');
+app.use(compression());
 
 const port = process.env.PORT || 8081;
 
