@@ -13,6 +13,7 @@ import Carousel from '../../components/Carousel';
 import EventTracker from '../../event-tracker';
 import Events from '../../event-tracker/events';
 import UnitSelector from './UnitSelector';
+import WeatherSummary from './WeatherSummary';
 
 import './HomePage.scss';
 
@@ -63,6 +64,8 @@ const HomePage = ({ weatherState, weatherActions }) => {
           ? <LoadingIndicator />
           : (
             <Fragment>
+              <WeatherSummary weatherData={weathers[0]} unit={unitValue} />
+
               <Carousel onSelectCard={onSelectCard}>
                 {
                   weathers.map(({ avgTemp, avgTempMin, avgTempMax, avgHumidity, date, id }, index) => (

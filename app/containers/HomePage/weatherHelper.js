@@ -1,21 +1,6 @@
 /* eslint-disable camelcase */
 import { findIndex } from 'lodash';
-
-const parseDateTime = (dateTimeStr) => {
-  if (!dateTimeStr) {
-    return {};
-  }
-
-  const dateObj = new Date(dateTimeStr);
-  const dateStr = `${dateObj.getFullYear()}-${dateObj.getDate()}-${dateObj.getMonth() + 1}`;
-  const time = dateObj.getHours();
-  const timeStr = `${time > 12 ? time - 12 : (time || 12)} ${time >= 12 ? 'PM' : 'AM'}`;
-
-  return {
-    date: dateStr,
-    time: timeStr
-  };
-};
+import { formatTime, formatDate } from '../../services/helper';
 
 // calculating avg and converting them from string (because toFixed changing number to string) to number
 const getAvgValue = (val, val1, floatingPrecision = 2) => (+((val + val1) / 2).toFixed(floatingPrecision));
@@ -24,7 +9,8 @@ const getSynthesizedWeatherList = (list) => {
   const weathers = [];
 
   list.forEach(({ dt_txt, dt, main: { temp, temp_min, temp_max, humidity } }) => {
-    const { date, time } = parseDateTime(dt_txt);
+    const date = formatDate(dt_txt);
+    const time = formatTime(dt_txt);
 
     if (!date || !time) {
       return false;
@@ -58,6 +44,5 @@ const getSynthesizedWeatherList = (list) => {
 
 export {
   getSynthesizedWeatherList,
-  parseDateTime,
   getAvgValue
 };

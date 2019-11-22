@@ -41,4 +41,19 @@
     background: $background-1;
     transition: all 0.5s;
   }
+
+  .weather-summary-container {
+    max-width: 400px;
+    margin: 1em auto;
+    margin-bottom: 3em;
+
+    h3, h4 {
+      margin: 5px 0;
+    }
+
+    h4 {
+      font-weight: normal;
+      font-size: 0.9em;
+    }
+  }
 }
