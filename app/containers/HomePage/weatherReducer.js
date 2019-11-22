@@ -5,7 +5,7 @@ import { getSynthesizedWeatherList } from './weatherHelper';
 import * as actionTypes from './weatherActionTypes';
 
 const initialState = {
-  weathers: [],
+  weathers: null,
   error: '',
   loading: false
 };

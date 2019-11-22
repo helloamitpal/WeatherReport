@@ -61,7 +61,7 @@ const HomePage = ({ weatherState, weatherActions }) => {
 
         {!loading && error && <p>Something went wrong. We are looking into this issue. Please try again after some time.</p>}
 
-        {(loading && weathers.length === 0 && !error)
+        {(loading && weathers && weathers.length === 0 && !error)
           ? <LoadingIndicator />
           : (
             <Fragment>
