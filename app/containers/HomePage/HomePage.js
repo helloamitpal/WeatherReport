@@ -59,11 +59,12 @@ const HomePage = ({ weatherState, weatherActions }) => {
       <div className="main-container">
         <UnitSelector unit={unitValue} onUnitChange={handleChange} />
 
+        {loading ? <LoadingIndicator /> : null}
+
         {!loading && error && <p>Something went wrong. We are looking into this issue. Please try again after some time.</p>}
 
-        {(loading && (!weathers || weathers.length === 0) && !error)
-          ? <LoadingIndicator />
-          : (
+        {(!loading && weathers && weathers.length)
+          ? (
             <Fragment>
               <WeatherSummary weatherData={weathers[0]} unit={unitValue} />
 
@@ -107,6 +108,7 @@ const HomePage = ({ weatherState, weatherActions }) => {
               }
             </Fragment>
           )
+          : null
         }
       </div>
     </div>

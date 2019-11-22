@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 
 import { formatDate } from '../../services/helper';
 
-const WeatherSummary = ({ unit, weatherData: { avgTemp, avgHumidity } }) => {
+const WeatherSummary = memo(({ unit, weatherData: { avgTemp, avgHumidity } }) => {
   let outside = '';
   let humid = '';
   const today = formatDate();
@@ -34,11 +34,11 @@ const WeatherSummary = ({ unit, weatherData: { avgTemp, avgHumidity } }) => {
       </h4>
     </div>
   );
-};
+});
 
 WeatherSummary.propTypes = {
-  weatherData: PropTypes.object.isRequired,
-  unit: PropTypes.string.isRequired
+  weatherData: PropTypes.object,
+  unit: PropTypes.string
 };
 
 export default WeatherSummary;

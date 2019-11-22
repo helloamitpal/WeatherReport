@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 
-const TimeWiseSummary = ({ timeline }) => (
+const TimeWiseSummary = memo(({ timeline }) => (
   <div className="timeline-container">
     <h2>Timewise Details</h2>
     {
@@ -10,7 +10,7 @@ const TimeWiseSummary = ({ timeline }) => (
       ))
     }
   </div>
-);
+));
 
 TimeWiseSummary.propTypes = {
   timeline: PropTypes.arrayOf(PropTypes.shape({

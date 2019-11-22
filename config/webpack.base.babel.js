@@ -97,7 +97,7 @@ module.exports = (options) => ({
       cleanupOutdatedCaches: true,
       skipWaiting: true,
       runtimeCaching: [{
-        urlPattern: /\.*$/,
+        urlPattern: /\*$/,
         handler: 'CacheFirst'
       }, {
         urlPattern: /forecast/,

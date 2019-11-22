@@ -30,7 +30,7 @@ class ErrorBoundary extends React.Component {
         <div className="error-container">
           <h1 className="gradient-background">Something went wrong</h1>
           <p>
-            Sorry for the convenience caused.
+            Sorry for the inconvenience caused.
             <br />
             We are working on it.
             <br />
