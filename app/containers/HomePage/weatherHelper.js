@@ -8,7 +8,7 @@ const getAvgValue = (val, val1, floatingPrecision = 2) => (+((val + val1) / 2).t
 const getSynthesizedWeatherList = (list) => {
   const weathers = [];
 
-  list.forEach(({ dt_txt, dt, main: { temp, temp_min, temp_max, humidity } }) => {
+  list.forEach(({ dt_txt, dt, weather, main: { temp, temp_min, temp_max, humidity } }) => {
     const date = formatDate(dt_txt);
     const time = formatTime(dt_txt);
 
@@ -17,10 +17,12 @@ const getSynthesizedWeatherList = (list) => {
     }
 
     const index = findIndex(weathers, (obj) => (obj.date === date));
+    const { description } = weather[0];
 
     if (index >= 0) {
       const { avgTempMin, avgTempMax, avgHumidity, avgTemp } = weathers[index];
       weathers[index].chartData.push([time, temp]);
+      weathers[index].timeline.push({ time, description });
 
       weathers[index].tempMin = getAvgValue(temp_min, avgTempMin);
       weathers[index].avgTemp = getAvgValue(temp, avgTemp);
@@ -34,7 +36,8 @@ const getSynthesizedWeatherList = (list) => {
         avgHumidity: humidity,
         avgTempMin: temp_min,
         avgTempMax: temp_max,
-        chartData: [[time, temp]]
+        chartData: [[time, temp]],
+        timeline: [{ time, description }]
       });
     }
   });

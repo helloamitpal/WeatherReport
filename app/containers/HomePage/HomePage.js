@@ -14,6 +14,7 @@ import EventTracker from '../../event-tracker';
 import Events from '../../event-tracker/events';
 import UnitSelector from './UnitSelector';
 import WeatherSummary from './WeatherSummary';
+import TimeWiseSummary from './TimeWiseSummary';
 
 import './HomePage.scss';
 
@@ -90,15 +91,18 @@ const HomePage = ({ weatherState, weatherActions }) => {
 
               {weathers[selectedCardIndex]
                 ? (
-                  <Chart
-                    className="mt-2"
-                    chartType="ColumnChart"
-                    columns={chartColumnConfig}
-                    rows={weathers[selectedCardIndex].chartData}
-                    width="100%"
-                    height="400px"
-                    config={chartConfig}
-                  />
+                  <Fragment>
+                    <Chart
+                      className="mt-1"
+                      chartType="ColumnChart"
+                      columns={chartColumnConfig}
+                      rows={weathers[selectedCardIndex].chartData}
+                      width="100%"
+                      height="400px"
+                      config={chartConfig}
+                    />
+                    <TimeWiseSummary timeline={weathers[selectedCardIndex].timeline} />
+                  </Fragment>
                 ) : null
               }
             </Fragment>

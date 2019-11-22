@@ -28,7 +28,7 @@ const WeatherSummary = ({ unit, weatherData: { avgTemp, avgHumidity } }) => {
     <div className="weather-summary-container">
       <h3>{`Today ${today}`}</h3>
       <h4>
-        {`It will be ${outside} and ${humid} humid weather as the average temperature will be ${avgTemp}.`}
+        {`It will be ${outside} and ${humid} humid weather as the average temperature will be ${avgTemp}`}
         &deg;
         {unit}
       </h4>
